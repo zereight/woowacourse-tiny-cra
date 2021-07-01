@@ -1,0 +1,12 @@
+{
+  "name": "tiny-typescript-cra",
+  "version": "1.0.2",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "repository": "https://github.com/zereight/tiny-typescript-cra",
+  "author": "zereight <fullstackmachinelearning@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  }
+}

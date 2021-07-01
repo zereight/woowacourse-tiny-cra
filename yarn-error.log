@@ -1,0 +1,38 @@
+Arguments: 
+  /usr/local/Cellar/node/16.3.0/bin/node /usr/local/bin/yarn init
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  16.3.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: Can't answer a question unless a user TTY
+      at ConsoleReporter.question (/usr/local/lib/node_modules/yarn/lib/cli.js:96361:59)
+      at Object.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:88636:38)
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "tiny-typescript-cra",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/zereight/tiny-typescript-cra",
+    "author": "zereight <fullstackmachinelearning@gmail.com>",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
