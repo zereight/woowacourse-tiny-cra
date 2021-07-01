@@ -1,7 +1,7 @@
-const fs = require("fs");
+var fs = require("fs");
 
-const BEBEL_CONFIG = `{"presets": ["@babel/preset-env"]}`;
-const ESLINT_CONFIG = `{
+var BEBEL_CONFIG = `{"presets": ["@babel/preset-env"]}`;
+var ESLINT_CONFIG = `{
     "env": {
       "browser": true,
       "es2021": true
@@ -31,8 +31,8 @@ const ESLINT_CONFIG = `{
     }
   }
   `;
-const GITIGNORE_CONFIG = "node_modules";
-const PRETTIER_CONFIG = `{
+var GITIGNORE_CONFIG = "node_modules";
+var PRETTIER_CONFIG = `{
     "arrowParens": "avoid",
     "bracketSpacing": true,
     "htmlWhitespaceSensitivity": "css",
@@ -52,7 +52,7 @@ const PRETTIER_CONFIG = `{
   }
   `;
 
-const TS_CONFIG = `{
+var TS_CONFIG = `{
     "compilerOptions": {
       /* Basic Options */
       "target": "es5",
@@ -80,9 +80,9 @@ const TS_CONFIG = `{
     "include": ["./src/**/*"]
   }
   `;
-const WEBPACK_CONFIG = `const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+var WEBPACK_CONFIG = `var path = require("path");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
+var { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: ["./src/index.tsx"],
@@ -137,7 +137,7 @@ module.exports = {
 };
 `;
 
-const HTML_TEMPLATE = `<!DOCTYPE html>
+var HTML_TEMPLATE = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -151,7 +151,7 @@ const HTML_TEMPLATE = `<!DOCTYPE html>
 </html>
 `;
 
-const PACKAGE_JSON = `{
+var PACKAGE_JSON = `{
     "name": "",
     "version": "1.0.0",
     "description": "",
@@ -196,13 +196,13 @@ const PACKAGE_JSON = `{
     }
   }`;
 
-const APP_JSX_INIT = `const App = () => {
+var APP_JSX_INIT = `var App = () => {
     return <h1>Hello World</h1>;
   };
   
   export default App;`;
 
-const INDEX_JSX_INIT = `
+var INDEX_JSX_INIT = `
   import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -214,14 +214,17 @@ ReactDOM.render(
   document.querySelector("#root")
 );`;
 
-const execSync = (cmg) =>
+var execSync = function (cmg) {
   require("child_process").execSync(cmg).toString().trim();
+};
 
-const run = () => {
-  const projectFolderName = process.argv[2];
+var run = () => {
+  var projectFolderName = process.argv[2];
   execSync(`mkdir ${projectFolderName}`);
 
-  const execSyncInApp = (cmd) => execSync(`cd ${projectFolderName} && ${cmd}`);
+  var execSyncInApp = function (cmd) {
+    execSync(`cd ${projectFolderName} && ${cmd}`);
+  };
 
   fs.writeFileSync(`${projectFolderName}/package.json`, PACKAGE_JSON);
 
