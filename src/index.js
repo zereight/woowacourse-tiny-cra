@@ -1,143 +1,13 @@
-var fs = require("fs");
+const fs = require("fs");
 
-var BEBEL_CONFIG = `{"presets": ["@babel/preset-env"]}`;
-var ESLINT_CONFIG = `{
-    "env": {
-      "browser": true,
-      "es2021": true
-    },
-    "extends": [
-      "airbnb-base",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "prettier/@typescript-eslint",
-      "plugin:prettier/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "plugins": ["react", "@typescript-eslint", "prettier"],
-    "rules": {},
-    "ignorePatterns": ["webpack.config.js", ".eslintrc.js"],
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    }
-  }
-  `;
-var GITIGNORE_CONFIG = "node_modules";
-var PRETTIER_CONFIG = `{
-    "arrowParens": "avoid",
-    "bracketSpacing": true,
-    "htmlWhitespaceSensitivity": "css",
-    "insertPragma": false,
-    "jsxBracketSameLine": false,
-    "jsxSingleQuote": false,
-    "printWidth": 80,
-    "proseWrap": "preserve",
-    "quoteProps": "as-needed",
-    "requirePragma": false,
-    "semi": true,
-    "singleQuote": false,
-    "tabWidth": 2,
-    "trailingComma": "none",
-    "useTabs": false,
-    "vueIndentScriptAndStyle": false
-  }
-  `;
+const babelrc = require("./template/babelrc");
+const eslintrc = require("./template/eslintrc");
+const prettierrc = require("./template/prettierrc");
+const gitignore = require("./template/gitignore");
+const tsconfig = require("./template/tsconfig");
+const webpackConfig = require("./template/webpackconfig");
 
-var TS_CONFIG = `{
-    "compilerOptions": {
-      /* Basic Options */
-      "target": "es5",
-      "module": "esnext",
-      "allowJs": true,
-      "jsx": "react-jsx",
-      "sourceMap": true,
-      "outDir": "./build",
-  
-      /* Strict Type-Checking Options */
-      "strict": true,
-  
-      /* Module Resolution Options */
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-  
-      /* Advanced Options */
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-  
-      "noImplicitAny": true, // any를 막는다.
-      "strictNullChecks": true, // 모든 타입에 자동으로 포함되어 있는 null, undefined 제거
-      "noImplicitReturns": true // 모든 코드가 값을 리턴하지 않으면 에러
-    },
-    "include": ["./src/**/*"]
-  }
-  `;
-var WEBPACK_CONFIG = `var path = require("path");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var { CleanWebpackPlugin } = require("clean-webpack-plugin");
-
-module.exports = {
-  entry: ["./src/index.tsx"],
-  output: {
-    path: path.resolve(__dirname, "dist/js"),
-    filename: "bundle.js"
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        loader: "ts-loader",
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(js|jsx)$/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: [
-                [
-                  "@babel/preset-env",
-                  {
-                    useBuiltIns: "usage",
-                    corejs: "3.6.4",
-                    targets: {
-                      chrome: "87"
-                    }
-                  }
-                ],
-                "@babel/preset-react"
-              ]
-            }
-          }
-        ],
-        exclude: /node_modules/
-      }
-    ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html"
-    }),
-    new CleanWebpackPlugin()
-  ],
-  resolve: {
-    extensions: ["", ".ts", ".tsx", ".js", ".jsx", "css", "scss"]
-  },
-  devtool: "source-map",
-  mode: "development"
-};
-`;
-
-var HTML_TEMPLATE = `<!DOCTYPE html>
+const htmlTemplate = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -151,8 +21,48 @@ var HTML_TEMPLATE = `<!DOCTYPE html>
 </html>
 `;
 
-var PACKAGE_JSON = `{
-    "name": "",
+const babelInstallList = [
+  "@babel/cli",
+  "@babel/core",
+  "@babel/preset-env",
+  "@babel/preset-react",
+];
+
+const typescriptInstallList = [
+  "typescript",
+  "ts-loader",
+  "@types/react",
+  "@types/react-dom",
+  "@typescript-eslint/eslint-plugin",
+  "@typescript-eslint/parser",
+  "@types/styled-components",
+];
+
+const webpackInstallList = [
+  "webpack",
+  "webpack-cli",
+  "webpack-dev-server",
+  "babel-loader",
+  "clean-webpack-plugin",
+  "html-webpack-plugin",
+];
+
+const reactInstallList = ["react", "react-dom"];
+
+const eslintPrettierInstallList = [
+  "eslint",
+  "prettier",
+  "eslint-config-airbnb-base",
+  "eslint-config-prettier",
+  "eslint-plugin-import",
+  "eslint-plugin-prettier",
+  "eslint-plugin-react",
+];
+
+const styledComponentInstallList = ["styled-component"];
+
+const PACKAGE_JSON = ({ name }) => `{
+    "name": "${name}",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -160,35 +70,10 @@ var PACKAGE_JSON = `{
     "author": "",
     "license": "MIT",
     "devDependencies": {
-      "@babel/cli": "^7.14.5",
-      "@babel/core": "^7.14.6",
-      "@babel/preset-env": "^7.14.7",
-      "@babel/preset-react": "^7.14.5",
-      "@types/styled-components": "^5.1.10",
-      "@typescript-eslint/eslint-plugin": "^4.28.0",
-      "@typescript-eslint/parser": "^4.28.0",
-      "babel-loader": "8.2.2",
-      "clean-webpack-plugin": "^4.0.0-alpha.0",
-      "eslint": "^7.29.0",
-      "eslint-config-airbnb-base": "^14.2.1",
-      "eslint-config-prettier": "^8.3.0",
-      "eslint-plugin-import": "^2.23.4",
-      "eslint-plugin-prettier": "^3.4.0",
-      "eslint-plugin-react": "^7.24.0",
-      "html-webpack-plugin": "^5.3.2",
-      "prettier": "^2.3.2",
-      "ts-loader": "^9.2.3",
-      "typescript": "^4.3.4",
-      "webpack": "^5.40.0",
-      "webpack-cli": "^4.7.2",
-      "webpack-dev-server": "^3.11.2"
+      
     },
     "dependencies": {
-      "@types/react": "^17.0.11",
-      "@types/react-dom": "^17.0.8",
-      "react": "^17.0.2",
-      "react-dom": "^17.0.2",
-      "styled-component": "^2.8.0"
+      
     },
     "scripts": {
       "start": "webpack serve",
@@ -196,14 +81,17 @@ var PACKAGE_JSON = `{
     }
   }`;
 
-var APP_JSX_INIT = `var App = () => {
-    return <h1>Hello World</h1>;
-  };
-  
-  export default App;`;
+const appTemplate = `
+import React from "react";
+const App = () => {
+  return <h1>Hello World</h1>;
+};
 
-var INDEX_JSX_INIT = `
-  import React from "react";
+export default App;
+`;
+
+const indexTemplate = `
+import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
@@ -214,35 +102,58 @@ ReactDOM.render(
   document.querySelector("#root")
 );`;
 
-var execSync = function (cmg) {
+const execSync = function (cmg) {
   require("child_process").execSync(cmg).toString().trim();
 };
 
-var run = () => {
-  var projectFolderName = process.argv[2];
+const run = () => {
+  const projectFolderName = process.argv[2];
+  const isTypescript = process.argv[3] === "typescript";
+
   execSync(`mkdir ${projectFolderName}`);
 
-  var execSyncInApp = function (cmd) {
+  const execSyncInApp = function (cmd) {
     execSync(`cd ${projectFolderName} && ${cmd}`);
   };
 
-  fs.writeFileSync(`${projectFolderName}/package.json`, PACKAGE_JSON);
+  fs.writeFileSync(
+    `${projectFolderName}/package.json`,
+    PACKAGE_JSON({ name: projectFolderName })
+  );
 
-  fs.writeFileSync(`${projectFolderName}/.babelrc`, BEBEL_CONFIG);
-  fs.writeFileSync(`${projectFolderName}/.eslintrc`, ESLINT_CONFIG);
-  fs.writeFileSync(`${projectFolderName}/.prettierrc`, PRETTIER_CONFIG);
-  fs.writeFileSync(`${projectFolderName}/.gitignore`, GITIGNORE_CONFIG);
+  fs.writeFileSync(`${projectFolderName}/.babelrc`, babelrc);
+  fs.writeFileSync(`${projectFolderName}/.eslintrc`, eslintrc);
+  fs.writeFileSync(`${projectFolderName}/.prettierrc`, prettierrc);
+  fs.writeFileSync(`${projectFolderName}/.gitignore`, gitignore);
 
-  fs.writeFileSync(`${projectFolderName}/tsconfig.json`, TS_CONFIG);
-  fs.writeFileSync(`${projectFolderName}/webpack.config.js`, WEBPACK_CONFIG);
+  fs.writeFileSync(
+    `${projectFolderName}/webpack.config.js`,
+    webpackConfig(isTypescript)
+  );
 
   execSyncInApp("mkdir public");
   execSyncInApp("mkdir src");
-  fs.writeFileSync(`${projectFolderName}/public/index.html`, HTML_TEMPLATE);
-  fs.writeFileSync(`${projectFolderName}/src/App.tsx`, APP_JSX_INIT);
-  fs.writeFileSync(`${projectFolderName}/src/index.tsx`, INDEX_JSX_INIT);
+  fs.writeFileSync(`${projectFolderName}/public/index.html`, htmlTemplate);
 
-  execSyncInApp(`yarn`);
+  execSyncInApp(`yarn add -D ${babelInstallList.join(" ")}`);
+  execSyncInApp(`yarn add -D ${webpackInstallList.join(" ")}`);
+  execSyncInApp(`yarn add -D ${eslintPrettierInstallList.join(" ")}`);
+
+  if (isTypescript) {
+    execSyncInApp(`yarn add -D ${typescriptInstallList.join(" ")}`);
+    fs.writeFileSync(`${projectFolderName}/tsconfig.json`, tsconfig);
+  }
+  fs.writeFileSync(
+    `${projectFolderName}/src/App.${isTypescript ? "t" : "j"}sx`,
+    appTemplate
+  );
+  fs.writeFileSync(
+    `${projectFolderName}/src/index.${isTypescript ? "t" : "j"}sx`,
+    indexTemplate
+  );
+
+  execSyncInApp(`yarn add  ${reactInstallList.join(" ")}`);
+  execSyncInApp(`yarn add  ${styledComponentInstallList.join(" ")}`);
 };
 
 run();
