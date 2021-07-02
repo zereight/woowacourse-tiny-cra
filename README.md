@@ -1,4 +1,4 @@
-# Tiny CRA
+# Woowacourse Tiny CRA
 
 - webpack
 - react
@@ -11,8 +11,8 @@
 
 ```sh
 // javascript
-node src/index.js my-app
+yarn start my-app
 
 // typescript
-node src/index.js my-app typescript
+yarn start my-app typescript
 ```
