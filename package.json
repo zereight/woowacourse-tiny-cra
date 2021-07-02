@@ -3,8 +3,8 @@
   "version": "1.0.4",
   "main": "src/index.js",
   "bin": "src/index.js",
-  "repository": "https://github.com/zereight/tiny-typescript-cra",
-  "author": "zereight <fullstackmachinelearning@gmail.com>",
+  "repository": "https://github.com/zereight/woowacourse-tiny-cra",
+  "author": "zereight (도비) <fullstackmachinelearning@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "node ."
