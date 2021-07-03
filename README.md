@@ -10,9 +10,14 @@
 ## Usage
 
 ```sh
+// install
+yarn add woowacourse-tiny-cra
+```
+
+```sh
 // javascript
-yarn start my-app
+node node_modules/woowacourse-tiny-cra/src/index.js my-app
 
 // typescript
-yarn start my-app typescript
+node node_modules/woowacourse-tiny-cra/src/index.js my-app typescript
 ```
