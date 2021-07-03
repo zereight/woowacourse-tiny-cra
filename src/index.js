@@ -59,7 +59,7 @@ const eslintPrettierInstallList = [
   "eslint-plugin-react",
 ];
 
-const styledComponentInstallList = ["styled-component"];
+const styledComponentInstallList = ["styled-components"];
 
 const PACKAGE_JSON = ({ name }) => `{
     "name": "${name}",
