@@ -5,6 +5,7 @@ const eslintrc = require("./template/eslintrc");
 const prettierrc = require("./template/prettierrc");
 const gitignore = require("./template/gitignore");
 const tsconfig = require("./template/tsconfig");
+const typeDts = require("./template/type.d.ts.js");
 const webpackConfig = require("./template/webpackconfig");
 
 const htmlTemplate = `<!DOCTYPE html>
@@ -30,12 +31,12 @@ const babelInstallList = [
 
 const typescriptInstallList = [
   "typescript",
-  "ts-loader",
   "@types/react",
   "@types/react-dom",
   "@typescript-eslint/eslint-plugin",
   "@typescript-eslint/parser",
   "@types/styled-components",
+  "@babel/preset-typescript",
 ];
 
 const webpackInstallList = [
@@ -81,17 +82,14 @@ const PACKAGE_JSON = ({ name }) => `{
     }
   }`;
 
-const appTemplate = `
-import React from "react";
-const App = () => {
+const appTemplate = `const App = () => {
   return <h1>Hello World</h1>;
 };
 
 export default App;
 `;
 
-const indexTemplate = `
-import React from "react";
+const indexTemplate = `import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
@@ -141,7 +139,9 @@ const run = () => {
 
   if (isTypescript) {
     execSyncInApp(`yarn add -D ${typescriptInstallList.join(" ")}`);
+
     fs.writeFileSync(`${projectFolderName}/tsconfig.json`, tsconfig);
+    fs.writeFileSync(`${projectFolderName}/type.d.ts`, typeDts);
   }
   fs.writeFileSync(
     `${projectFolderName}/src/App.${isTypescript ? "t" : "j"}sx`,

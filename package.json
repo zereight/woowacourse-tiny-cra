@@ -1,8 +1,11 @@
 {
   "name": "woowacourse-tiny-cra",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "main": "src/index.js",
   "repository": "https://github.com/zereight/woowacourse-tiny-cra",
   "author": "zereight (도비) <fullstackmachinelearning@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/index.js"
+  }
 }

@@ -1,11 +1,3 @@
-const tsLoader = `
-{
-    test: /\.(ts|tsx)$/,
-    loader: "ts-loader",
-    exclude: /node_modules/
-},
-`;
-
 const webpackConfig = (isTypescript) => `
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -19,18 +11,21 @@ module.exports = {
   },
   module: {
     rules: [
-        ${isTypescript ? tsLoader : ""}
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(${isTypescript ? "tsx|ts|" : ""}js|jsx)$/,
         use: [
           {
             loader: "babel-loader",
             options: {
               presets: [
+                "@babel/preset-env",
                 [
-                  "@babel/preset-env"
+                  "@babel/preset-react",
+                  {
+                    runtime: "automatic"
+                  }
                 ],
-                "@babel/preset-react"
+                ${isTypescript ? '"@babel/preset-typescript",' : ""}
               ]
             }
           }
@@ -46,7 +41,9 @@ module.exports = {
     new CleanWebpackPlugin()
   ],
   resolve: {
-    extensions: ["", ".ts", ".tsx", ".js", ".jsx", "css", "scss"]
+    extensions: [${
+      isTypescript ? '".ts", ".tsx",' : ""
+    } ".js", ".jsx", "css", "scss"]
   },
   devtool: "source-map",
   mode: "development"
