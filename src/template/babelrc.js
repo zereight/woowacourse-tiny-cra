@@ -1,3 +1,3 @@
-const babelrc = `{"presets": ["@babel/preset-env"]}`;
+const babelrc = `{}`;
 
 module.exports = babelrc;

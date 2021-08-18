@@ -1,6 +1,6 @@
 {
   "name": "woowacourse-tiny-cra",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "main": "src/index.js",
   "repository": "https://github.com/zereight/woowacourse-tiny-cra",
   "author": "zereight (도비) <fullstackmachinelearning@gmail.com>",

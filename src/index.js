@@ -27,6 +27,7 @@ const babelInstallList = [
   "@babel/core",
   "@babel/preset-env",
   "@babel/preset-react",
+  "@babel/plugin-transform-runtime",
 ];
 
 const typescriptInstallList = [
