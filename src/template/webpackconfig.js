@@ -47,7 +47,14 @@ module.exports = {
     } ".js", ".jsx", "css", "scss"]
   },
   devtool: "source-map",
-  mode: "development"
+  mode: "development",
+  devServer: {
+    host: "localhost",
+    port: 3000,
+    historyApiFallback: true,
+    open: true,
+    hot: true
+  }
 };
 `;
 
