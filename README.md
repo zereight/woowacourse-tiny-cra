@@ -16,8 +16,8 @@ yarn add woowacourse-tiny-cra
 
 ```sh
 // javascript
-node node_modules/woowacourse-tiny-cra/src/index.js my-app
+node node_modules/woowacourse-tiny-cra/src/index.js
 
 // typescript
-node node_modules/woowacourse-tiny-cra/src/index.js my-app typescript
+node node_modules/woowacourse-tiny-cra/src/index.js typescript
 ```

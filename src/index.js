@@ -106,13 +106,25 @@ const execSync = function (cmg) {
 };
 
 const run = () => {
-  const projectFolderName = process.argv[2];
-  const isTypescript = process.argv[3] === "typescript";
+  const projectFolderName = "something-app";
+  const isTypescript = process.argv[2] === "typescript";
 
   execSync(`mkdir ${projectFolderName}`);
 
   const execSyncInApp = function (cmd) {
     execSync(`cd ${projectFolderName} && ${cmd}`);
+  };
+
+  const removeWoowaCourseCRA = function () {
+    try {
+      execSync("rm -rf node_modules/ package.json yarn.lock");
+      execSync(`mv ./${projectFolderName}/* ./`);
+      execSync(`mv ./${projectFolderName}/.* ./`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      execSync(`rmdir ${projectFolderName}`);
+    }
   };
 
   fs.writeFileSync(
@@ -155,6 +167,8 @@ const run = () => {
 
   execSyncInApp(`yarn add  ${reactInstallList.join(" ")}`);
   execSyncInApp(`yarn add  ${styledComponentInstallList.join(" ")}`);
+
+  removeWoowaCourseCRA();
 };
 
 run();
