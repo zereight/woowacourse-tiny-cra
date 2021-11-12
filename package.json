@@ -1,6 +1,6 @@
 {
   "name": "woowacourse-tiny-cra",
-  "version": "1.1.2",
+  "version": "1.1.6",
   "main": "src/index.js",
   "bin": {
     "woowacourse-tiny-cra": "./bin/index.js"

@@ -108,8 +108,8 @@ const execSync = function (cmg) {
 };
 
 const run = () => {
-  const projectFolderName = "something-app";
-  const isTypescript = process.argv[2] === "typescript";
+  const projectFolderName = process.argv[2] || "my-app";
+  const isTypescript = process.argv[3] === "--typescript";
 
   execSync(`mkdir ${projectFolderName}`);
 
