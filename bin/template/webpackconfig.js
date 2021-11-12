@@ -1,13 +1,12 @@
-const webpackConfig = (isTypescript) => `
-const path = require("path");
+const webpackConfig = isTypescript => `const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: ["./src/index.${isTypescript ? "t" : "j"}sx"],
   output: {
     path: path.resolve(__dirname, "dist/js"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    clean: true
   },
   module: {
     rules: [
@@ -39,7 +38,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html"
     }),
-    new CleanWebpackPlugin()
   ],
   resolve: {
     extensions: [${

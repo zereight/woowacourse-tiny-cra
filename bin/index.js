@@ -47,7 +47,6 @@ const webpackInstallList = [
   "webpack-cli",
   "webpack-dev-server",
   "babel-loader",
-  "clean-webpack-plugin",
   "html-webpack-plugin"
 ];
 
