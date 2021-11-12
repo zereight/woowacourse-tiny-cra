@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const fs = require("fs");
 
 const babelrc = require("./template/babelrc");
@@ -27,7 +29,7 @@ const babelInstallList = [
   "@babel/core",
   "@babel/preset-env",
   "@babel/preset-react",
-  "@babel/plugin-transform-runtime",
+  "@babel/plugin-transform-runtime"
 ];
 
 const typescriptInstallList = [
@@ -37,7 +39,7 @@ const typescriptInstallList = [
   "@typescript-eslint/eslint-plugin",
   "@typescript-eslint/parser",
   "@types/styled-components",
-  "@babel/preset-typescript",
+  "@babel/preset-typescript"
 ];
 
 const webpackInstallList = [
@@ -46,7 +48,7 @@ const webpackInstallList = [
   "webpack-dev-server",
   "babel-loader",
   "clean-webpack-plugin",
-  "html-webpack-plugin",
+  "html-webpack-plugin"
 ];
 
 const reactInstallList = ["react", "react-dom"];
@@ -58,7 +60,7 @@ const eslintPrettierInstallList = [
   "eslint-config-prettier",
   "eslint-plugin-import",
   "eslint-plugin-prettier",
-  "eslint-plugin-react",
+  "eslint-plugin-react"
 ];
 
 const styledComponentInstallList = ["styled-components"];
