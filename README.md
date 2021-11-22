@@ -10,11 +10,6 @@
 ## Usage
 
 ```sh
-// install
-yarn add woowacourse-tiny-cra
-```
-
-```sh
 // javascript
 npx woowacourse-tiny-cra my-app
 
